@@ -12,21 +12,20 @@
           <c:choose>
          <c:when test="${not empty name_m}">
             <sql:update>
-		    INSERT INTO movies.dvd(name_m, release_m) VALUES(?, ?)
+		    INSERT INTO movies.dvd(name_m, release_m, lead_actor) VALUES(?, ?)
 	            <sql:param value="${name_m}"/>
 		    <sql:param value="${release_m}"/>
+		    <sql:param value="${lead_actor}"/>
 	       </sql:update>
-            <c:set var="msg" value="Thank you for your feedback." />
-	       <c:set var="name" value="" />
-	       <c:set var="comments" value="" />		
+            <c:set var="msg" value="Thank you for your contribution." />
+	       <c:set var="name_m" value="" />
+	       <c:set var="release_m" value="" />		
             </c:when>
             <c:otherwise>
-            <c:set var="msg" value="Please supply some comments." />
+            <c:set var="msg" value="Please add some movies" />
             </c:otherwise>
           </c:choose>
         </c:if>
-        
-        //afterbefore
 
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
         <html>
@@ -56,19 +55,31 @@
           </c:forEach>
         </table>
         
+        <sql:query var="qryPosts2" >
+                  SELECT movie_name, movie_release FROM movies.template
+          </sql:query>
+        
          <form action="demo.jsp" method="post">
           <table>
             <tr>
               <td>Title:</td>
-           		<select name="name_m">
-   				 <c:forEach var="name_m" items="${param.name_m}">
-        			<option value="${param.name_m}"></option>
+           		<td><select name="name_m">
+   				 <c:forEach var="row" items="${qryPosts2.rows}">
+        			<option value="${row.movie_name}"></option>
     			</c:forEach>
 				</select>
             </tr>
             <tr>
               <td>Release Year:</td>
-           <td><input type='text' name='release_m' value="${release_m}"></td>
+           		<td><select name="release_m">
+   				 <c:forEach var="row" items="${qryPosts2.rows}">
+        			<option value="${row.movie_release}"></option>
+    			</c:forEach>
+				</select>
+            </tr>  
+            <tr>
+              <td>Lead Actor:</td>
+           <td><input type='text' name='lead_actor' value="${lead_actor}"></td>
             </tr>  
             <tr>
               <td></td>
