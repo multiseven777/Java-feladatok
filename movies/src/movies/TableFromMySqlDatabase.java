@@ -23,15 +23,14 @@ public class TableFromMySqlDatabase extends JFrame {
 	        ArrayList columnNames = new ArrayList();
 	        ArrayList data = new ArrayList();
 
-	        //  Connect to an MySQL Database, run query, get result set
+	        //  Connect to an MySQL Database
 	        String url = "jdbc:mysql://127.0.0.1:3306/movies";
 	        String userid = "user1";
 	        String password = "password1";
 	        String sql = "SELECT * FROM dvd";
 
-	        // Java SE 7 has try-with-resources
-	        // This will ensure that the sql objects are closed when the program 
-	        // is finished with them
+	        // This will ensure that the sql objects are closed
+	        
 	        try (Connection connection = DriverManager.getConnection( url, userid, password );
 	            Statement stmt = (Statement) connection.createStatement();
 	            ResultSet rs = stmt.executeQuery( sql ))
@@ -63,10 +62,8 @@ public class TableFromMySqlDatabase extends JFrame {
 	            System.out.println( e.getMessage() );
 	        }
 
-	        // Create Vectors and copy over elements from ArrayLists to them
-	        // Vector is deprecated but I am using them in this example to keep 
-	        // things simple - the best practice would be to create a custom defined
-	        // class which inherits from the AbstractTableModel class
+	        // Create Vectors and copy over elements from ArrayLists
+	       
 	        Vector columnNamesVector = new Vector();
 	        Vector dataVector = new Vector();
 
