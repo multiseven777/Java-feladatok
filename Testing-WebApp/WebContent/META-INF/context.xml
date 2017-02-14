@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+   <Resource name="jdbc/SampleDB" auth="Container"
+       type="javax.sql.DataSource" 
+       username="user1" password="password1"
+       driverClassName="com.mysql.jdbc.Driver"
+       url="jdbc:mysql://127.0.0.1:3306/movies" 
+       maxActive="8"    /> 
+</Context> 
