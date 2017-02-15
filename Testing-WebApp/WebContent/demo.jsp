@@ -5,27 +5,50 @@
 
      <sql:setDataSource dataSource="jdbc/SampleDB" />
      
-     <c:set var="name_m" value="${param.name_m}" />
-        <c:set var="release_m" value="${param.release_m}" />
+     <c:set var="name" value="${param.name}" />
+     <c:set var="release" value="${param.release}" />
             
+     <!-- 'Submit' action -->
+          
      <c:if test="${param.action == 'Submit'}">
           <c:choose>
-         <c:when test="${not empty name_m}">
+         <c:when test="${not empty name && release}">
             <sql:update>
-		    INSERT INTO movies.dvd(name_m, release_m, lead_actor) VALUES(?, ?)
+		    INSERT INTO movies.movie_collection(name_m, release_m) VALUES(?, ?)
 	            <sql:param value="${name_m}"/>
-		    <sql:param value="${release_m}"/>
-		    <sql:param value="${lead_actor}"/>
+		    	<sql:param value="${release_m}"/>
 	       </sql:update>
-            <c:set var="msg" value="Thank you for your contribution." />
-	       <c:set var="name_m" value="" />
-	       <c:set var="release_m" value="" />		
-            </c:when>
+            	<c:set var="msg" value="Movie(s) added" />
+	       		<c:set var="name" value="" />
+	       		<c:set var="release" value="" />		
+          	</c:when>
             <c:otherwise>
-            <c:set var="msg" value="Please add some movies" />
+            	<c:set var="msg" value="Something went wrong" />
             </c:otherwise>
           </c:choose>
         </c:if>
+        
+     <!-- 'Delete' action -->
+        
+     <c:if test="${param.action == 'Delete'}">
+     		<c:choose>
+         <c:when test="${not empty name && release}">
+     		<sql:update>
+     	DELETE movies.movie_collection(name_m, release_m) VALUES(?,?)
+     			<sql:param value="${name}"/>
+		    	<sql:param value="${release}"/>
+		    </sql:update>
+            	<c:set var="msg" value="Movie(s) deleted" />
+	       		<c:set var="name" value="" />
+	       		<c:set var="release" value="" />
+	       	</c:when>
+            <c:otherwise>
+            	<c:set var="msg" value="Something went wrong" />
+            </c:otherwise>
+          </c:choose>	
+     	</c:if>
+     	
+     	<!-- Main -->
 
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
         <html>
@@ -37,49 +60,44 @@
         <h1>Movies Database</h1>
  
         <table border='1'>
-          <tr><th>DVD ID</th><th>Title</th><th>Release Year</th><th>Lead Actor</th><th>IMDB Rating</th><th>User Rating</th>
+          <tr><th>Collection ID</th><th>Title</th><th>Release Year</th>
 
        <sql:query var="qryPosts" >
-                  SELECT dvd_id, name_m, release_m, lead_actor, imdb_rating, user_rating FROM movies.dvd
+                  SELECT movie_id, movie_name, movie_release FROM movies.movie_collection
           </sql:query>
 
        <c:forEach var="row" items="${qryPosts.rows}">
 	        <tr>
-               <td><c:out value="${row.dvd_id}" /></td>
-                  <td><c:out value="${row.name_m}" /></td>
-                  <td><c:out value="${row.release_m}" /></td>
-                  <td><c:out value="${row.lead_actor}" /></td>
-                  <td><c:out value="${row.imdb_rating}" /></td>
-                  <td><c:out value="${row.user_rating}" /></td>
+               <td><c:out value="${row.movie_id}" /></td>
+                  <td><c:out value="${row.movie_name}" /></td>
+                  <td><c:out value="${row.movie_release}" /></td>
+                  <td><input type='button' name='action' value='Delete'></td>
 	        </tr>
           </c:forEach>
         </table>
         
-        <sql:query var="qryPosts2" >
-                  SELECT movie_name, movie_release FROM movies.template
-          </sql:query>
+        <!-- Drop-down list -->
         
          <form action="demo.jsp" method="post">
+         <sql:query var="qryPosts2" >
+                  SELECT name_m, release_m FROM movies.movie_database
+          </sql:query>
           <table>
             <tr>
               <td>Title:</td>
-           		<td><select name="name_m">
-   				 <c:forEach var="row" items="${qryPosts2.rows}">
-        			<option value="${row.movie_name}"></option>
+              <td><select name="name">
+   				 <c:forEach var="name" items="${qryPosts2.rows}">
+        			<option>${name.name_m}</option>
     			</c:forEach>
-				</select>
+    			</select>
             </tr>
             <tr>
               <td>Release Year:</td>
-           		<td><select name="release_m">
-   				 <c:forEach var="row" items="${qryPosts2.rows}">
-        			<option value="${row.movie_release}"></option>
+           		<td><select name="release">
+   				 <c:forEach var="release" items="${qryPosts2.rows}">
+        			<option>${release.release_m}</option>
     			</c:forEach>
 				</select>
-            </tr>  
-            <tr>
-              <td>Lead Actor:</td>
-           <td><input type='text' name='lead_actor' value="${lead_actor}"></td>
             </tr>  
             <tr>
               <td></td>
