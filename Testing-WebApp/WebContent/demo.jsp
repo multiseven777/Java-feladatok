@@ -54,10 +54,15 @@
         <html>
         <head>
         <title>MOVIES DATABASE</title>
+         	<link rel="stylesheet" href="css/kube.min.css" />
+    		<link rel="stylesheet" href="css/font-awesome.min.css" />
+    		<link rel="stylesheet" href="css/custom.min.css" />
         </head>
         <body>
 
+		<div class="container">
         <h1>Movies Database</h1>
+         </div>
  
         <table border='1'>
           <tr><th>Collection ID</th><th>Title</th><th>Release Year</th>
@@ -75,10 +80,11 @@
 	        </tr>
           </c:forEach>
         </table>
+       
         
         <!-- Drop-down list -->
         
-         <form action="demo.jsp" method="post">
+         <form class="group top-nav" action="demo.jsp" method="post">
          <sql:query var="qryPosts2" >
                   SELECT name_m, release_m FROM movies.movie_database
           </sql:query>
