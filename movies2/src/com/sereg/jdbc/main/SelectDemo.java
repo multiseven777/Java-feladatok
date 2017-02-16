@@ -11,10 +11,11 @@ import com.sereg.jdbc.to.Movies;
 public class SelectDemo {
 	
 	public static void main(String[] args) {
-        //1. Get Employee
+        //get movie call
 		getMovies();
     }
  
+	//get movie by ID
     private static void getMovies() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter the MovieID:");
@@ -36,6 +37,7 @@ public class SelectDemo {
         }
     }
  
+    //display selected movie
     private static void displayMovies(Movies movies) {
         System.out.println("Movie ID:" + movies.getMovie_ID());
         System.out.println("Movie Title:" + movies.getMovie_name());

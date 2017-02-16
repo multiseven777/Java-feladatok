@@ -7,12 +7,13 @@ import java.sql.Statement;
 
 public class DbUtil {
 	
+	//close
 	public static void close(Connection connection) {
         if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {
-                /*Ignore*/
+                
             }
         }
     }
@@ -22,7 +23,7 @@ public class DbUtil {
             try {
                 statement.close();
             } catch (SQLException e) {
-                /*Ignore*/
+               
             }
         }
     }
@@ -32,7 +33,7 @@ public class DbUtil {
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                /*Ignore*/
+               
             }
         }
     }

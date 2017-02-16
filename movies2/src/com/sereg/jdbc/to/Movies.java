@@ -24,7 +24,5 @@ public class Movies {
     public void setMovie_release(int movie_release) {
         this.movie_release = movie_release;
     }
- 
-    //toString()
 
 }

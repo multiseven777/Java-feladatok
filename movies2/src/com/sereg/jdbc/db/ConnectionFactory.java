@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 	
-	//static reference to itself
+	//reference
     private static ConnectionFactory instance = new ConnectionFactory();
     public static final String URL = "jdbc:mysql://127.0.0.1:3306/movies";
     public static final String USER = "user1";
     public static final String PASSWORD = "password1";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
      
-    //private constructor
+    //constructor
     private ConnectionFactory() {
         try {
             Class.forName(DRIVER_CLASS);
@@ -22,6 +22,7 @@ public class ConnectionFactory {
         }
     }
      
+    //connection
     private Connection createConnection() {
         Connection connection = null;
         try {

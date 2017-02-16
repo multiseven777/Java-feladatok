@@ -16,6 +16,7 @@ public class MoviesDAO {
  
     public MoviesDAO() { }
  
+    //select from db.table
     public Movies getMovies(int movie_ID) throws SQLException {
         String query = "SELECT * FROM movie_collection WHERE movie_ID=" + movie_ID;
         ResultSet rs = null;
