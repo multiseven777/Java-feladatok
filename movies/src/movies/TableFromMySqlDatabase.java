@@ -27,7 +27,7 @@ public class TableFromMySqlDatabase extends JFrame {
 	        String url = "jdbc:mysql://127.0.0.1:3306/movies";
 	        String userid = "user1";
 	        String password = "password1";
-	        String sql = "SELECT * FROM dvd";
+	        String sql = "SELECT * FROM movie_collection";
 
 	        // This will ensure that the sql objects are closed
 	        

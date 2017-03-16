@@ -1,0 +1,1 @@
+insert into cv_template values ('András', 'Sereg', '1990. 02. 10.', '30/337-1376', 'andrassereg90@gmail.com', 'Reguly Antal Általános Iskola', 'Krúdy Gyula Gimnázium', 'SZTE-TTIK, környezetmérnök szak', 'english', 'C, C++, JAVA, geoinformatikai rendszerek', 'különböző diákmunkák', 'gyorsan tanulok')
